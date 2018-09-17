@@ -193,6 +193,20 @@
 					<file>target/PhotosExport_0.0.1~20180914.130301.512.deb</file>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m5.1</version>
+                <configuration>
+                    <noDeploy>true</noDeploy>
+                    <pushReleases>true</pushReleases>
+                    <flowInitContext>
+                        <masterBranchName>master</masterBranchName>
+                        <developBranchName>development</developBranchName>
+                    </flowInitContext>
+                </configuration>
+            </plugin>
 		</plugins>
 
 	</build>
