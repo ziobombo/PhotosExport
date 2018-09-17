@@ -184,7 +184,7 @@
                     <pushReleases>true</pushReleases>
                     <flowInitContext>
                         <masterBranchName>master</masterBranchName>
-                        <developBranchName>development</developBranchName>
+                        <developBranchName>develop</developBranchName>
                     </flowInitContext>
                 </configuration>
             </plugin>
