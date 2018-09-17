@@ -1,11 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.fraguglia</groupId>
 	<artifactId>PhotosExport</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>PhotosExport</name>
-	<description></description>
+	<description />
 	<inceptionYear>2018</inceptionYear>
 
 	<properties>
@@ -176,25 +175,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>com.aerse.maven</groupId>
-				<artifactId>apt-maven-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<id>deploy</id>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<component>main</component> <!-- Required. Example: main restricted universe. -->
-					<codename>fraguglia</codename> <!-- Required. Example: mycompany, repo -->
-					<file>target/PhotosExport_0.0.1~20180914.130301.512.deb</file>
-				</configuration>
-			</plugin>
-			
-			<plugin>
                 <groupId>external.atlassian.jgitflow</groupId>
                 <artifactId>jgitflow-maven-plugin</artifactId>
                 <version>1.0-m5.1</version>
@@ -203,7 +183,7 @@
                     <pushReleases>true</pushReleases>
                     <flowInitContext>
                         <masterBranchName>master</masterBranchName>
-                        <developBranchName>development</developBranchName>
+                        <developBranchName>develop</developBranchName>
                     </flowInitContext>
                 </configuration>
             </plugin>
