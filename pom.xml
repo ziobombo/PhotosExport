@@ -176,23 +176,18 @@
 			</plugin>
 
 			<plugin>
-				<groupId>com.aerse.maven</groupId>
-				<artifactId>apt-maven-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<id>deploy</id>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<component>main</component> <!-- Required. Example: main restricted universe. -->
-					<codename>fraguglia</codename> <!-- Required. Example: mycompany, repo -->
-					<file>target/PhotosExport_0.0.1~20180914.130301.512.deb</file>
-				</configuration>
-			</plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m5.1</version>
+                <configuration>
+                    <noDeploy>true</noDeploy>
+                    <pushReleases>true</pushReleases>
+                    <flowInitContext>
+                        <masterBranchName>master</masterBranchName>
+                        <developBranchName>development</developBranchName>
+                    </flowInitContext>
+                </configuration>
+            </plugin>
 		</plugins>
 
 	</build>
