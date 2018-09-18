@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.fraguglia</groupId>
 	<artifactId>PhotosExport</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<name>PhotosExport</name>
 	<description />
 	<inceptionYear>2018</inceptionYear>
@@ -183,7 +183,7 @@
 			<plugin>
 				<artifactId>jdeb</artifactId>
 				<groupId>org.vafer</groupId>
-				<version>0.11</version>
+				<version>1.6</version>
 				<executions>
 					<execution>
 						<phase>install</phase>
