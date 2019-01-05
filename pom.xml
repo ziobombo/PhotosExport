@@ -102,6 +102,13 @@
 	</dependencies>
 
 	<build>
+<extensions>
+    <extension>
+       <groupId>org.apache.maven.wagon</groupId>
+       <artifactId>wagon-ssh</artifactId>
+       <version>3.2.0</version>
+ </extension>
+</extensions>
 		<sourceDirectory>src/main/scala</sourceDirectory>
 		<testSourceDirectory>src/test/scala</testSourceDirectory>
 		<finalName>${project.artifactId}-${project.version}</finalName>
@@ -183,7 +190,7 @@
 			<plugin>
 				<artifactId>jdeb</artifactId>
 				<groupId>org.vafer</groupId>
-				<version>1.6</version>
+				<version>1.7</version>
 				<executions>
 					<execution>
 						<phase>install</phase>
@@ -237,4 +244,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
