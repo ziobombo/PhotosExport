@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.fraguglia</groupId>
 	<artifactId>PhotosExport</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 	<name>PhotosExport</name>
 	<description />
 	<inceptionYear>2018</inceptionYear>
@@ -213,7 +213,7 @@
 				<artifactId>jgitflow-maven-plugin</artifactId>
 				<version>1.0-m5.1</version>
 				<configuration>
-					<noDeploy>true</noDeploy>
+					<noDeploy>false</noDeploy>
 					<pushReleases>true</pushReleases>
 					<flowInitContext>
 						<masterBranchName>master</masterBranchName>
@@ -225,7 +225,6 @@
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
-				<version>0.8</version>
 				<configuration>
 					<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
 					<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
