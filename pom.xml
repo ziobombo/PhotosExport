@@ -12,9 +12,11 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<encoding>UTF-8</encoding>
 		<scala.tools.version>2.11</scala.tools.version>
-		<scala.version>2.11.11</scala.version>
-		<spark.version>2.3.1</spark.version>
+		<scala.version>2.11.12</scala.version>
+		<spark.version>2.4.0</spark.version>
 		<downloadSources>true</downloadSources>
+    	<!-- github server corresponds to entry in ~/.m2/settings.xml -->
+    	<github.global.server>github</github.global.server>
 	</properties>
 
 	<dependencies>
@@ -22,73 +24,50 @@
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-library</artifactId>
 			<version>${scala.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-reflect</artifactId>
 			<version>${scala.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.23.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.spark/spark-sql -->
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-sql_2.11</artifactId>
-			<version>2.3.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.orc</groupId>
-					<artifactId>orc-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.orc</groupId>
-					<artifactId>orc-mapreduce</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.parquet</groupId>
-					<artifactId>parquet-hadoop</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>spark-sql_${scala.tools.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-catalyst_2.11</artifactId>
-			<version>2.3.1</version>
+			<artifactId>spark-catalyst_${scala.tools.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-core_2.11</artifactId>
-			<version>2.3.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.avro</groupId>
-					<artifactId>avro</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.avro</groupId>
-					<artifactId>avro-mapred</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.hadoop</groupId>
-					<artifactId>hadoop-yarn-api</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>spark-core_${scala.tools.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
+			<version>2.4</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Test -->
@@ -242,7 +221,45 @@
 					</flowInitContext>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+					<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+					<branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+					<includes><include>**/*</include></includes>
+					<repositoryName>${project.artifactId}</repositoryName>      <!-- github repo name -->
+					<repositoryOwner>ziobombo</repositoryOwner>    <!-- github username  -->
+				</configuration>
+				<executions>
+				<!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+				<execution>
+					<goals>
+					<goal>site</goal>
+					</goals>
+					<phase>deploy</phase>
+				</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/mvn-repo</url>
+		</repository>
+	</distributionManagement>
 
 </project>
