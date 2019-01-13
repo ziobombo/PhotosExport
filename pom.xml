@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.fraguglia</groupId>
 	<artifactId>PhotosExport</artifactId>
@@ -15,8 +16,8 @@
 		<scala.version>2.11.12</scala.version>
 		<spark.version>2.4.0</spark.version>
 		<downloadSources>true</downloadSources>
-    	<!-- github server corresponds to entry in ~/.m2/settings.xml -->
-    	<github.global.server>github</github.global.server>
+		<!-- github server corresponds to entry in ~/.m2/settings.xml -->
+		<github.global.server>github</github.global.server>
 	</properties>
 
 	<dependencies>
@@ -55,7 +56,11 @@
 			<version>${spark.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>info.picocli</groupId>
+			<artifactId>picocli</artifactId>
+			<version>3.9.1</version>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -81,13 +86,13 @@
 	</dependencies>
 
 	<build>
-<extensions>
-    <extension>
-       <groupId>org.apache.maven.wagon</groupId>
-       <artifactId>wagon-ssh</artifactId>
-       <version>3.2.0</version>
- </extension>
-</extensions>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>3.2.0</version>
+			</extension>
+		</extensions>
 		<sourceDirectory>src/main/scala</sourceDirectory>
 		<testSourceDirectory>src/test/scala</testSourceDirectory>
 		<finalName>${project.artifactId}-${project.version}</finalName>
@@ -230,18 +235,21 @@
 					<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
 					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
 					<branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
-					<includes><include>**/*</include></includes>
+					<includes>
+						<include>**/*</include>
+					</includes>
 					<repositoryName>${project.artifactId}</repositoryName>      <!-- github repo name -->
-					<repositoryOwner>ziobombo</repositoryOwner>    <!-- github username  -->
+					<repositoryOwner>ziobombo</repositoryOwner>    <!-- github username -->
 				</configuration>
 				<executions>
-				<!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
-				<execution>
-					<goals>
-					<goal>site</goal>
-					</goals>
-					<phase>deploy</phase>
-				</execution>
+					<!-- run site-maven-plugin's 'site' target as part of the build's normal 
+						'deploy' phase -->
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
 				</executions>
 			</plugin>
 
