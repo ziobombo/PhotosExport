@@ -54,6 +54,8 @@ class MyApp extends Runnable with Serializable {
       .master("local[" + parallelism + "]")
       .getOrCreate()
 
+    Class.forName("org.sqlite.JDBC")
+
     import spark.implicits._
     val version = spark
       .read
