@@ -54,8 +54,6 @@ class MyApp extends Runnable with Serializable {
       .master("local[" + parallelism + "]")
       .getOrCreate()
 
-    Class.forName("org.sqlite.JDBC")
-
     import spark.implicits._
     val version = spark
       .read
@@ -63,7 +61,8 @@ class MyApp extends Runnable with Serializable {
       .options(
         Map(
           "url" -> s"jdbc:sqlite:$library/database/photos.db",
-          "dbtable" -> "(select fileName, masterId, adjustmentUuid, isInTrash, showInLibrary from rkVersion) as v"))
+          "dbtable" -> "(select fileName, masterId, adjustmentUuid, isInTrash, showInLibrary from rkVersion) as v",
+          "driver" -> "org.sqlite.JDBC"))
       .load
       .repartition(parallelism)
       .map { row =>
