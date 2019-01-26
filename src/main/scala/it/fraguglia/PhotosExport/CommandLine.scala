@@ -85,7 +85,8 @@ class MyApp extends Runnable with Serializable {
       .options(
         Map(
           "url" -> s"jdbc:sqlite:$library/database/photos.db",
-          "dbtable" -> "(select modelId, isMissing, isInTrash from rkMaster) as m"))
+          "dbtable" -> "(select modelId, isMissing, isInTrash from rkMaster) as m",
+          "driver" -> "org.sqlite.JDBC"))
       .load
       .repartition(parallelism)
       .map { row =>
@@ -108,7 +109,8 @@ class MyApp extends Runnable with Serializable {
       .options(
         Map(
           "url" -> s"jdbc:sqlite:$library/database/photos.db",
-          "dbtable" -> "(select modelId, resourceTag from rkModelResource) as mr"))
+          "dbtable" -> "(select modelId, resourceTag from rkModelResource) as mr",
+          "driver" -> "org.sqlite.JDBC"))
       .load
       .repartition(parallelism)
       .map { row =>
