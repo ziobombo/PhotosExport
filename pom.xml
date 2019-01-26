@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.fraguglia</groupId>
 	<artifactId>PhotosExport</artifactId>
-	<version>1.8.0</version>
+	<version>1.9.0</version>
 	<name>PhotosExport</name>
 	<description />
 	<inceptionYear>2018</inceptionYear>
@@ -35,8 +35,8 @@
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.23.1</version>
-			<scope>runtime</scope>
+			<version>3.25.2</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
