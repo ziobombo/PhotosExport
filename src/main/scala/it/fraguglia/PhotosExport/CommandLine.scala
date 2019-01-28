@@ -44,9 +44,10 @@ class MyApp extends Runnable with Serializable {
 
     @transient lazy val log = org.apache.log4j.LogManager.getLogger("appLogger")
 
-    var library = libraryOption
-    var backup = backupOption
-    var parallelism = parallelismOption
+    val library = libraryOption
+    val backup = backupOption
+    val parallelism = parallelismOption
+    val libraryPathEditedFiles = Paths.get(library, "resources", "media", "version")
 
     val spark = SparkSession
       .builder
@@ -126,14 +127,17 @@ class MyApp extends Runnable with Serializable {
       .map(x => (new File(x).getName(), x))
       .persist(StorageLevel.MEMORY_AND_DISK_SER)
 
-    val allEditedFiles = spark.createDataset[String](getRecursiveListOfFiles(Paths.get(library, "resources", "media", "version").toFile()).toList.map(f => f.toString))
-      .repartition(parallelism)
-      .filter(new File(_).isFile()).map(x => {
-        val suffix = new File(x).getName().split('.')(0).split('_')(1)
-        val dir = new File(x).getParentFile().getParentFile().getName()
-        (suffix, dir, x)
-      })
-      .persist(StorageLevel.MEMORY_AND_DISK_SER)
+    val allEditedFiles = {
+
+      spark.createDataset[String](getRecursiveListOfFiles(libraryPathEditedFiles.toFile()).toList.map(f => f.toString))
+        .repartition(parallelism)
+        .filter(new File(_).isFile()).map(x => {
+          val suffix = new File(x).getName().split('.')(0).split('_')(1)
+          val dir = new File(x).getParentFile().getParentFile().getName()
+          (suffix, dir, x)
+        })
+        .persist(StorageLevel.MEMORY_AND_DISK_SER)
+    }
 
     val allBackupFiles = spark.createDataset[String](getRecursiveListOfFiles(Paths.get(backup).toFile()).toList.map(f => f.toString))
       .repartition(parallelism)
@@ -211,7 +215,11 @@ class MyApp extends Runnable with Serializable {
   }
 
   def getRecursiveListOfFiles(dir: File): Array[File] = {
-    val these = dir.listFiles
+
+    val these = dir.listFiles match {
+      case null => Array[File]()
+      case _ => dir.listFiles
+    }
     these ++ these.filter(_.isDirectory).flatMap(getRecursiveListOfFiles)
   }
 }

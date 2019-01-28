@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.fraguglia</groupId>
 	<artifactId>PhotosExport</artifactId>
-	<version>1.10.0</version>
+	<version>1.11.0</version>
 	<name>PhotosExport</name>
 	<description />
 	<inceptionYear>2018</inceptionYear>
@@ -86,6 +86,7 @@
 	</dependencies>
 
 	<build>
+
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -96,12 +97,7 @@
 		<sourceDirectory>src/main/scala</sourceDirectory>
 		<testSourceDirectory>src/test/scala</testSourceDirectory>
 		<finalName>${project.artifactId}-${project.version}</finalName>
-		<resources>
-			<resource>
-				<directory>src/bin</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
+
 		<plugins>
 
 			<plugin>
@@ -197,7 +193,27 @@
 									</mapper>
 								</data>
 								<data>
-									<src>${project.build.directory}/classes/photos_export.sh</src>
+									<src>${project.build.directory}/classes/log4j.properties</src>
+									<type>file</type>
+									<mapper>
+										<type>perm</type>
+										<prefix>/usr/local/share/java/PhotosExport</prefix>
+										<user>root</user>
+										<group>root</group>
+										<filemode>775</filemode>
+									</mapper>
+								</data>
+								<data>
+									<type>template</type>
+									<paths>
+										<path>/var/log/PhotosExport</path>
+										<user>root</user>
+										<group>root</group>
+										<dirmode>777</dirmode>
+									</paths>
+								</data>
+								<data>
+									<src>${project.build.directory}/classes/bin/PhotosExport.sh</src>
 									<type>file</type>
 									<mapper>
 										<type>perm</type>
