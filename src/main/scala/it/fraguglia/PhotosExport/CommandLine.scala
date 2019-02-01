@@ -220,6 +220,6 @@ class MyApp extends Runnable with Serializable {
       case null => Array[File]()
       case _ => dir.listFiles
     }
-    these ++ these.filter(_.isDirectory).flatMap(getRecursiveListOfFiles)
+    these ++ these.filter(_.isDirectory).filter(_.isHidden()).flatMap(getRecursiveListOfFiles)
   }
 }
