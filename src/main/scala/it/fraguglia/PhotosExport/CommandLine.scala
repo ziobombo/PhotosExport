@@ -131,7 +131,7 @@ class MyApp extends Runnable with Serializable {
 
       spark.createDataset[String](getRecursiveListOfFiles(libraryPathEditedFiles.toFile()).toList.map(f => f.toString))
         .repartition(parallelism)
-        .filter(new File(_).isFile()).map(x => {
+        .filter(new File(_).isFile()).filter(new File(_).getName.matches("[a-zA-Z0-9]+_[a-zA-Z0-9]+\\.[a-zA-Z0-9]+")).map(x => {
           val suffix = new File(x).getName().split('.')(0).split('_')(1)
           val dir = new File(x).getParentFile().getParentFile().getName()
           (suffix, dir, x)
@@ -220,6 +220,6 @@ class MyApp extends Runnable with Serializable {
       case null => Array[File]()
       case _ => dir.listFiles
     }
-    these ++ these.filter(_.isDirectory).filter(_.isHidden()).flatMap(getRecursiveListOfFiles)
+    these ++ these.filter(_.isDirectory).flatMap(getRecursiveListOfFiles)
   }
 }

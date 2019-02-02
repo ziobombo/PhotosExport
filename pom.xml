@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.fraguglia</groupId>
 	<artifactId>PhotosExport</artifactId>
-	<version>1.13.0</version>
+	<version>1.14.0</version>
 	<name>PhotosExport</name>
 	<description />
 	<inceptionYear>2018</inceptionYear>
