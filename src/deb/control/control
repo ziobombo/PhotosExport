@@ -5,6 +5,5 @@ Priority: optional
 Architecture: all
 Maintainer: Riccardo Casazza <riccardo.casazza@gmail.com>
 Description: A tool to export photos from Apple Photos libraries
-Depends: oracle-java8-installer
 PreDepends: dpkg (>= 1.15.7.2)
 Distribution: development
