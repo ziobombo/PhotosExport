@@ -2,14 +2,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.fraguglia</groupId>
 	<artifactId>PhotosExport</artifactId>
-	<version>1.14.0</version>
+	<version>1.16.0</version>
 	<name>PhotosExport</name>
 	<description />
 	<inceptionYear>2018</inceptionYear>
 
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.13</maven.compiler.source>
+		<maven.compiler.target>1.13</maven.compiler.target>
 		<encoding>UTF-8</encoding>
 		<scala.tools.version>2.11</scala.tools.version>
 		<scala.version>2.11.12</scala.version>
